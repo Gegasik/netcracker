@@ -8,9 +8,10 @@ import java.util.Set;
 public class Users {
     public Users() {
     }
+
     @Id
-    @Column(name="id_user")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id_user")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUser;
     @Column(name = "user_name")
     private String userName;
@@ -20,9 +21,9 @@ public class Users {
     private String password;
     @ManyToMany
     @JoinTable(
-            name="ticket",
-            joinColumns= {@JoinColumn (name = "owner_id")},
-            inverseJoinColumns= {@JoinColumn (name = "id_session")})
+            name = "ticket",
+            joinColumns = {@JoinColumn(name = "owner_id")},
+            inverseJoinColumns = {@JoinColumn(name = "id_session")})
     Set<SessionFilm> sessionFilms = new HashSet<>();
 
     public Long getIdUser() {

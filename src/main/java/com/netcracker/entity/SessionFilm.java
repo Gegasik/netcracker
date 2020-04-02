@@ -8,18 +8,18 @@ import java.util.Set;
 @Entity(name = "session_film")
 public class SessionFilm {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_session")
     private Long idSession;
     @Column(name = "session_film")
     private Long sessionFilm;
-    @Column(name="cinema_hall_id")
+    @Column(name = "cinema_hall_id")
     private Long cinemaHallId;
     @ManyToOne
-    @JoinColumn(name="id_film")
+    @JoinColumn(name = "id_film")
     private Film FilmId;
     @ManyToOne
-    @JoinColumn(name="id_hall")
+    @JoinColumn(name = "id_hall")
     private CinemaHall cinemaHall;
     @ManyToMany(mappedBy = "sessionFilms")
     private Set<Users> users;

@@ -2,20 +2,21 @@ package com.netcracker.entity;
 
 import javax.persistence.*;
 import java.util.Set;
+
 @Entity(name = "cinema_hall")
 public class CinemaHall {
     public CinemaHall() {
     }
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name="id_hall")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_hall")
     private Long idHall;
-    @Column(name="name_hall")
+    @Column(name = "name_hall")
     private String nameHall;
     private int capacity;
     @OneToMany(mappedBy = "cinemaHall")
     private Set<SessionFilm> sessionFilms;
-
 
 
     public Long getIdHall() {

@@ -1,5 +1,7 @@
 package com.netcracker.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -8,22 +10,26 @@ import java.util.Set;
 public class Film {
     public Film() {
     }
+
     @Id
-    @Column(name="id_film")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id_film")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idFilm;
-    @Column(name="film_name")
+    @Column(name = "film_name")
     private String filmName;
-    @Column(name="descriptions")
+    @Column(name = "film_description")
     private String filmDescriptions;
+    @JsonIgnore
     @OneToMany(mappedBy = "FilmId")
-    private Set<SessionFilm> Sessions_films;
+    private Set<SessionFilm> sessions;
     @ManyToMany
     @JoinTable(
-            name="films_categories",
-            joinColumns= {@JoinColumn (name = "id_film")},
-            inverseJoinColumns= {@JoinColumn (name = "id_category")})
+            name = "films_categories",
+            joinColumns = {@JoinColumn(name = "id_film")},
+            inverseJoinColumns = {@JoinColumn(name = "id_category")})
+
     Set<Category> categories = new HashSet<>();
+
 
     public long getIdFilm() {
         return idFilm;
@@ -49,19 +55,19 @@ public class Film {
         this.filmDescriptions = filmDescriptions;
     }
 
-    public Set<SessionFilm> getSessions_films() {
-        return Sessions_films;
+    public Set<SessionFilm> getSessions() {
+        return sessions;
     }
 
-    public void setSessions_films(Set<SessionFilm> sessions_films) {
-        Sessions_films = sessions_films;
+    public void setSessions(Set<SessionFilm> sessions_films) {
+        this.sessions = sessions_films;
     }
 
     public Set<Category> getCategories() {
         return categories;
     }
 
-    public void setCategories(Set<Category> subscriptions) {
-        this.categories = subscriptions;
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 }

@@ -1,9 +1,8 @@
 package com.netcracker.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,12 +10,16 @@ import java.util.Set;
 public class Category {
     public Category() {
     }
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_category")
     private long idCategory;
-    @Column(name="name_category")
+    @Column(name = "name_category")
     private String nameCategory;
-            @ManyToMany(mappedBy="categories")
+
+    @ManyToMany(mappedBy = "categories")
+    @JsonIgnore
     private Set<Film> films = new HashSet<>();
 
     public long getIdCategory() {
@@ -39,7 +42,7 @@ public class Category {
         return films;
     }
 
-    public void setFilms(Set<Film> accounts) {
-        this.films = accounts;
+    public void setFilms(Set<Film> films) {
+        this.films = films;
     }
 }

@@ -1,24 +1,41 @@
 package com.netcracker.Controllers;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.netcracker.entity.Film;
+import com.netcracker.entity.Users;
+import com.netcracker.service.FilmService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
+@RequestMapping("/film")
 public class FilmController {
-    @PostMapping // ADMIN добавить фильм
-    public String create(){
-        return"";
+
+    @Autowired
+    private FilmService filmService;
+
+    //посмотреть список доступных фильмов
+    @RequestMapping(value = "/{filmId}", method = RequestMethod.GET)
+    public ResponseEntity<Film> getFilmById(@PathVariable(name = "filmId") Long id) {
+        Film film = filmService.getFilm(id).get();
+        return ResponseEntity.ok(film);
     }
 
-    @DeleteMapping // АДМИН удалить фильм
-    public String delete(){
-        return"";
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public List<Film> getAllFilms() {
+        return filmService.findAll();
     }
-    @GetMapping //посмотреть список доступных фильмов
-    public String getFilms(){
-        return "films.html";
+
+    @RequestMapping(method = RequestMethod.POST)
+    public Film saveFilm(@RequestBody Film film) {
+        return filmService.save(film);
+    }
+
+    @RequestMapping(value = "/{filmId}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable(value = "filmId") Long id) {
+        filmService.delete(id);
     }
 
 }

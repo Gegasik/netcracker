@@ -1,18 +1,41 @@
 package com.netcracker.Controllers;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.netcracker.entity.SessionFilm;
+import com.netcracker.service.SessionFilmService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
+@RequestMapping("/SessionFilm")
 public class SessionFilmController {
-    @GetMapping
-    public String getSession(@PathVariable String Id ){
-        return "SessionFilm"+Id;
+    @Autowired
+    private SessionFilmService sessionFilmService;
+
+    @RequestMapping(value = "/{sessionId}", method = RequestMethod.GET)
+    public ResponseEntity<SessionFilm> getSessionFilmById(@PathVariable(value = "sessionId") Long SessionId) {
+        SessionFilm sessionFilm = sessionFilmService.getCinemaHallById(SessionId).get();
+        return ResponseEntity.ok(sessionFilm);
     }
-    @PostMapping //admin create
-    public String create(){
-        return "";
+
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public List<SessionFilm> getAll() {
+        return sessionFilmService.getAll();
     }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public SessionFilm save(@RequestBody SessionFilm sessionFilm) {
+        return sessionFilmService.save(sessionFilm);
+    }
+
+    @RequestMapping(value = "/{idSession}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable(value = "idSession") Long id) {
+        sessionFilmService.delete(id);
+    }
+
+
 }
