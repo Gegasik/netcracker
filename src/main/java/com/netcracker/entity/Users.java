@@ -1,5 +1,8 @@
 package com.netcracker.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,11 +22,13 @@ public class Users {
     private String user_Email;
     @Column(name = "password")
     private String password;
+
     @ManyToMany
     @JoinTable(
             name = "ticket",
             joinColumns = {@JoinColumn(name = "owner_id")},
             inverseJoinColumns = {@JoinColumn(name = "id_session")})
+    @JsonManagedReference
     Set<SessionFilm> sessionFilms = new HashSet<>();
 
     public Long getIdUser() {

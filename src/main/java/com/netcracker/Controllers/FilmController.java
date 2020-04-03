@@ -32,7 +32,7 @@ public class FilmController {
     public Film saveFilm(@RequestBody Film film) {
         return filmService.save(film);
     }
-
+//TODO не все фильмы могут удалятся
     @RequestMapping(value = "/{filmId}", method = RequestMethod.DELETE)
     public void delete(@PathVariable(value = "filmId") Long id) {
         filmService.delete(id);

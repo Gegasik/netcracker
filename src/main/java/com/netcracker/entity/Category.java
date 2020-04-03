@@ -1,6 +1,8 @@
 package com.netcracker.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -19,7 +21,7 @@ public class Category {
     private String nameCategory;
 
     @ManyToMany(mappedBy = "categories")
-    @JsonIgnore
+    @JsonBackReference
     private Set<Film> films = new HashSet<>();
 
     public long getIdCategory() {

@@ -1,5 +1,8 @@
 package com.netcracker.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -15,6 +18,7 @@ public class CinemaHall {
     @Column(name = "name_hall")
     private String nameHall;
     private int capacity;
+    @JsonBackReference
     @OneToMany(mappedBy = "cinemaHall")
     private Set<SessionFilm> sessionFilms;
 

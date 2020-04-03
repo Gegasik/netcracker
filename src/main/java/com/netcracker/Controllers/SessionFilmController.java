@@ -7,19 +7,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/SessionFilm")
+@RequestMapping("/sessionFilm")
 public class SessionFilmController {
     @Autowired
     private SessionFilmService sessionFilmService;
 
     @RequestMapping(value = "/{sessionId}", method = RequestMethod.GET)
     public ResponseEntity<SessionFilm> getSessionFilmById(@PathVariable(value = "sessionId") Long SessionId) {
-        SessionFilm sessionFilm = sessionFilmService.getCinemaHallById(SessionId).get();
+        SessionFilm sessionFilm = sessionFilmService.getSessionFilmById(SessionId).get();
         return ResponseEntity.ok(sessionFilm);
+    }
+
+    @RequestMapping(value = "/film/{filmId}", method = RequestMethod.GET)
+    public List<SessionFilm> getSessionsByfilmId(@PathVariable(value = "filmId") Long idFilm) {
+        return sessionFilmService.findByFilmId(idFilm);
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)

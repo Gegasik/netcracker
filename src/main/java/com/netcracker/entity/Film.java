@@ -1,6 +1,8 @@
 package com.netcracker.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -19,15 +21,16 @@ public class Film {
     private String filmName;
     @Column(name = "film_description")
     private String filmDescriptions;
-    @JsonIgnore
-    @OneToMany(mappedBy = "FilmId")
+    @OneToMany(mappedBy = "film")
+    @JsonManagedReference
     private Set<SessionFilm> sessions;
+
     @ManyToMany
     @JoinTable(
             name = "films_categories",
             joinColumns = {@JoinColumn(name = "id_film")},
             inverseJoinColumns = {@JoinColumn(name = "id_category")})
-
+    @JsonManagedReference
     Set<Category> categories = new HashSet<>();
 
 

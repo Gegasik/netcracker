@@ -1,5 +1,6 @@
 package com.netcracker.service.impl;
 
+import com.netcracker.entity.Film;
 import com.netcracker.entity.SessionFilm;
 import com.netcracker.service.SessionFilmService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class SessionFilmServiceImpl implements SessionFilmService {
@@ -30,7 +32,13 @@ public class SessionFilmServiceImpl implements SessionFilmService {
     }
 
     @Override
-    public Optional<SessionFilm> getCinemaHallById(Long id) {
+    public Optional<SessionFilm> getSessionFilmById(Long id) {
         return sessionFilmRepository.findById(id);
+    }
+
+    @Override
+    public List<SessionFilm> findByFilmId(Long id) {
+        List<SessionFilm> list = sessionFilmRepository.findByFilm_IdFilm(id);
+        return list;
     }
 }
